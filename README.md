@@ -1923,27 +1923,100 @@ function library:Evil(text,text2,logo)
 	end
 	return tabs
 end
-
+local UserInputService = game:GetService("UserInputService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local TweenService = game:GetService("TweenService")
+local tween = game:service"TweenService"
+local RunService = game:GetService("RunService")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+local GuiService = game:GetService("GuiService")
+local SoundClick2 = Instance.new("Sound")
+SoundClick2.Name = "Sound Effect"
+SoundClick2.SoundId = "rbxassetid://3398620867"
+SoundClick2.Volume = 1
+SoundClick2.Parent = game.Workspace
+local UIStroke = Instance.new("UIStroke")
+local UICorner = Instance.new("UICorner")
 local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
-local UICorner = Instance.new("UICorner")
-		
-ScreenGui.Name = "ImageButton"
-ScreenGui.Parent = game.CoreGui
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
+local RobloxButton = Enum.ButtonStyle.RobloxButton
+ScreenGui.Parent = game.CoreGui:WaitForChild("RobloxGui"):WaitForChild("Modules")
+ScreenGui.Name = "dsfwefwfwdfsfasdadaxczcw"
 ImageButton.Parent = ScreenGui
-ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
-ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Size = UDim2.new(0, 45, 0, 45)
 ImageButton.Draggable = true
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BackgroundTransparency = 0
 ImageButton.Image = "http://www.roblox.com/asset/?id="..(_G.Logo)
-ImageButton.MouseButton1Down:connect(function()
+function LoadFunction()    
+        ImageButton.MouseEnter:Connect(function()
+        TweenService:Create(
+            ImageButton,
+            TweenInfo.new(.2, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+            {Size = UDim2.new(0, 80, 0, 80)}
+        ):Play()
+    end)
+    ImageButton.MouseLeave:Connect(function()
+        TweenService:Create(
+            ImageButton,
+            TweenInfo.new(.2, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+            {Size = UDim2.new(0, 50, 0, 50)}
+        ):Play()
+    end)
+    
+    local LoadFocus = false
+    
+    ImageButton.MouseButton1Down:Connect(function()
+        if LoadFocus == false then 
+            LoadFocus = false
+            TweenService:Create(
+                ImageButton,
+                TweenInfo.new(.2, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+                {Rotation = 180}
+            ):Play()
+            SoundClick2:Play()
+            TweenService:Create(
+                ImageButton,
+                TweenInfo.new(.4, Enum.EasingStyle.Quart, Enum.EasingDirection.In),
+                {ImageTransparency = 0}
+            ):Play()
+            wait(.5)
+            TweenService:Create(
+                ImageButton,
+                TweenInfo.new(.2, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+                {Rotation = 0}
+            ):Play()
+            TweenService:Create(
+                ImageButton,
+                TweenInfo.new(.4, Enum.EasingStyle.Quart, Enum.EasingDirection.In),
+                {ImageTransparency = 0}
+            ):Play()
+            wait(.5)	
+            
+        end
+    end)
+end
+    LoadFunction()
+    ImageButton.MouseButton1Down:connect(function()
 	game:GetService("VirtualInputManager"):SendKeyEvent(true,305,false,game)
 	game:GetService("VirtualInputManager"):SendKeyEvent(false,305,false,game)
-end)
-UICorner.Parent = ImageButton
+    end)
+	function Vec(text)
+		local Notification = require(game.ReplicatedStorage.Notification)
+		local notification = Notification.new(text)
+		notification.Duration = 4
+		notification:Display()
+	end
+	local function tablefound(ta, object)
+		for i,v in pairs(ta) do
+			if v == object then
+				return true
+			end
+		end
+		return false
+	end
 if game.PlaceId == 2753915549 then World1 = true elseif game.PlaceId == 4442272183 then World2 = true elseif game.PlaceId == 7449423635 then World3 = true end
 function checklevel() 
     Level = game:GetService("Players").LocalPlayer.Data.Level.Value
@@ -3925,7 +3998,7 @@ Tween = function(target,statement,disableIslandSkip,fromRaid,CallingFrom)
 local Win = library:Evil("Attack Hub | ","",_G.Logo )
 local Tab = Win:CraftTab('General')
 local Main = Tab:CraftPage('Main',1)
-Main:Toggle("Auto Farm Level", false, function(value)
+Main:Toggle("Auto Farm [ Level ]\nออโต้ฟาร์มเลเวล", false, function(value)
     _G.AutoFarm = value
     StopTween(_G.AutoFarm)
 end)
@@ -3992,7 +4065,7 @@ spawn(function()
     end
 end)
 if World1 then 
-Main:Toggle("Auto Next Sea", false, function(value)
+Main:Toggle("Auto Next Sea\nออโต้โลก ต่อไป", false, function(value)
     _G.AutoSecondSea = value
     StopTween(_G.AutoSecondSea)
 end)
@@ -4052,7 +4125,7 @@ spawn(function()
 end)
 end
 if World2 then 
-Main:Toggle("Auto Next Sea", false, function(value)
+Main:Toggle("Auto Next Sea\nออโต้ โลก ต่อไป", false, function(value)
     _G.AutoThirdSea = value
     StopTween(_G.AutoThirdSea)
 end)
@@ -4099,7 +4172,7 @@ spawn(function()
 end)
 end
 if World2 or World3 then 
-Main:Toggle("Auto Farm Enemy", false, function(value)
+Main:Toggle("Auto Farm Enemy\nฟาร์ม มอน รอบๆ ระยะ10วิ", false, function(value)
     _G.AutoFarmNearest = value
     StopTween(_G.AutoFarmNearest)
 end)
@@ -4136,7 +4209,7 @@ spawn(function()
 end)
 end
 local Main = Tab:CraftPage('Cake',1)
-Main:Toggle("Auto Farm Cake Prince", false, function(value)
+Main:Toggle("Auto Farm Cake Prince\nฟาร์ม คาตาคุริ", false, function(value)
     _G.AutoDoughtBoss = value
     StopTween(_G.AutoDoughtBoss)
 end)
@@ -4247,7 +4320,7 @@ spawn(function()
         end
     end
 end)   
-Main:Toggle("Auto Kill Cake Prince V2", false, function(value)
+Main:Toggle("Auto Kill Cake Prince V2\nฟาร์คฝ คาตาคุริ ร่าง2", false, function(value)
     _G.Autodoughking = value
     StopTween( _G.Autodoughking)
 end)
@@ -4289,11 +4362,11 @@ spawn(function()
     end
 end)
 
-Main:Toggle("Auto Spawn Cake Prince", true, function(value)
+Main:Toggle("Auto Spawn Cake Prince\nเสก บอส คาตาคุริ", true, function(value)
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner",value)
 end)
 local Main = Tab:CraftPage('Bone',1)
-Main:Toggle("Auto Farm Bone", false, function(value)
+Main:Toggle("Auto Farm [ Bones ]\nฟาร์ม กระดูก", false, function(value)
     _G.Auto_Bone = value
     StopTween(_G.Auto_Bone)
 end)
@@ -4350,7 +4423,7 @@ spawn(function()
         end
     end
 end)  
-Main:Toggle("Auto Random Bone", false, function(value)
+Main:Toggle("Auto Random Bone\nสุ่มกระ กระดูก", false, function(value)
     _G.Auto_Random_Bone = value
 end)
 spawn(function()
@@ -4363,7 +4436,7 @@ spawn(function()
     end)
 end)
 local Main = Tab:CraftPage('Auto Farm Mastery',1)
-Main:Toggle("Auto Farm Fruit Mastery", false, function(value)
+Main:Toggle("Auto Farm Fruit Mastery\nฟาร์มาส ผลปีศาจ", false, function(value)
     _G.AutoFarmFruitMastery = value
     StopTween(_G.AutoFarmFruitMastery)
     if _G.AutoFarmFruitMastery == false then
@@ -4778,7 +4851,7 @@ spawn(function()
     end)
 end)
 
-Main:Toggle("Auto Farm Gun Mastery", false, function(value)
+Main:Toggle("Auto Farm Gun Mastery\nฟาร์ม มาส ปืน", false, function(value)
     _G.AutoFarmGunMastery = value
     StopTween(_G.AutoFarmGunMastery)
 end)
@@ -4863,7 +4936,7 @@ spawn(function()
     end)
 end)
 
-Main:Toggle("Auto Farm Sword Mastery", false, function(value)
+Main:Toggle("Auto Farm Sword Mastery\nฟาร์ม มาส ดาบ", false, function(value)
     _G.AutoSwordMastery = value
     StopTween(_G.AutoSwordMastery)
 end)
@@ -4967,7 +5040,7 @@ for _, name in pairs(Boss) do
     table.insert(bossCheck, name)
 end
 
-local BossName = Main:Dropdown("Select Boss", bossCheck,{""},function(value)
+local BossName = Main:Dropdown("Select Boss\nเลือกบอส", bossCheck,{""},function(value)
     _G.SelectBoss = value
 end)
 
@@ -4982,7 +5055,7 @@ Main:Button("Refresh", function()
             BossName:Add(v.Name)
         end
     end
-end)Main:Toggle("Auto Farm Boss", false, function(value)
+end)Main:Toggle("Auto Farm Boss\nฟาร์ม บอส", false, function(value)
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
     _G.AutoFarmBoss = value
     StopTween(_G.AutoFarmBoss)
@@ -5052,7 +5125,7 @@ spawn(function()
     end
 end)
 
-Main:Toggle("Auto Farm All Boss", false, function(value)
+Main:Toggle("Auto Farm All Boss\nฟาร์ม บอส ทุกตัว", false, function(value)
     _G.AutoAllBoss = value
     StopTween(_G.AutoAllBoss)
 end)
@@ -5087,7 +5160,7 @@ spawn(function()
     end
 end)local Set = Tab:CraftPage('Setting',2)
 local Weapon = {
-"Melee","Sword","Fruit","Gun"
+"หมัด","ดาบ","ผลปีศาจ","ปืน"
 }
 Set:Dropdown("Select Weapon",Weapon,{"Melee"},function(value)
 _G.SelectWeapon = value
@@ -5095,7 +5168,7 @@ end)
 task.spawn(function()
 	while wait() do
 		pcall(function()
-			if _G.SelectWeapon == "Melee" then
+			if _G.SelectWeapon == "หมัด" then
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Melee" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
@@ -5103,7 +5176,7 @@ task.spawn(function()
 						end
 					end
 				end
-			elseif _G.SelectWeapon == "Sword" then
+			elseif _G.SelectWeapon == "ดาบ" then
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Sword" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
@@ -5111,7 +5184,7 @@ task.spawn(function()
 						end
 					end
 				end
-			elseif _G.SelectWeapon == "Gun" then
+			elseif _G.SelectWeapon == "ปืน" then
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Gun" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
@@ -5119,7 +5192,7 @@ task.spawn(function()
 						end
 					end
 				end
-			elseif _G.SelectWeapon == "Fruit" then
+			elseif _G.SelectWeapon == "ผลปีศาจ" then
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Blox Fruit" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
@@ -5131,7 +5204,7 @@ task.spawn(function()
 		end)
 	end
 end)
-Set:Toggle("Black Screen", false, function(value)
+Set:Toggle("Black Screen\nจอดำ", false, function(value)
     _G.StartBlackScreen = value
 end)
 spawn(function()
@@ -5188,9 +5261,9 @@ spawn(function()
             end
         end
     end
-end)Set:Toggle("Insant Teleport", true, function(value)
+end)Set:Toggle("Insant Teleport\nBYPASS TP", true, function(value)
     BypassTP = value
-end)Set:Toggle("Bring Mob", true, function(value)
+end)Set:Toggle("Bring Mob\nรวม มอนสเตอร์", true, function(value)
     _G.BringMonster = value
 end)
 spawn(function()
@@ -6896,7 +6969,7 @@ spawn(function()
 end)
 local Tab1 = Win:CraftTab('Item & Quest')
 local Farm = Tab1:CraftPage('Other',1)
-Farm:Toggle("Auto Factory", false, function(value)
+Farm:Toggle("Auto Factory\nฟาร์ม โรงงาน", false, function(value)
     _G.AutoFactory = value
     StopTween(_G.AutoFactory)
 end)
@@ -6924,7 +6997,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Pirate Raid", false, function(value)
+Farm:Toggle("Auto Pirate Raid\nฟาร์ม โจรสลัด โลก3", false, function(value)
     _G.RaidPirate = value
     StopTween(_G.RaidPirate)
 end)
@@ -6963,7 +7036,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Soul Guitar", false, function(value)
+Farm:Toggle("Auto Soul Guitar\nทำ กีตาร์", false, function(value)
     _G.AutoNevaSoulGuitar = value    
     StopTween(_G.AutoNevaSoulGuitar)
 end)
@@ -7149,7 +7222,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Kill Rip_Indra", false, function(value)
+Farm:Toggle("Auto Kill Rip_Indra\nฟาร์ม แอดมิน", false, function(value)
     _G.AutoDarkDagger = value
     StopTween(_G.AutoDarkDagger)
 end)
@@ -7201,7 +7274,7 @@ spawn(function()
     end)
 end)
 
-Farm:Toggle("Auto Press Haki Button", false, function(value)
+Farm:Toggle("Auto Press Haki", false, function(value)
 	Open_Color_Haki = value
 	StopTween(Open_Color_Haki)
 end)
@@ -7284,7 +7357,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Swan Glasses", false, function(value)
+Farm:Toggle("Auto Swan Glasses\nฟาร์ม โดฟา", false, function(value)
     _G.AutoFarmSwanGlasses = value
     StopTween(_G.AutoFarmSwanGlasses)
 end)
@@ -7408,7 +7481,7 @@ spawn(function()
     end)
 end)
 
-Farm:Toggle("Auto Rainbow Haki", false, function(value)
+Farm:Toggle("Auto Rainbow Haki\nทำ ฮาคิ เรนโบว์", false, function(value)
     _G.Auto_Rainbow_Haki = value
     StopTween(_G.Auto_Rainbow_Haki)
 end)
@@ -7534,7 +7607,7 @@ spawn(function()
     end)
 end)
 
-Farm:Toggle("Auto Evo Race V2", false, function(value)
+Farm:Toggle("Auto Evo Race V2\nอีโวเผ่า", false, function(value)
     _G.Auto_EvoRace = value
     StopTween(_G.Auto_EvoRace)
 end)
@@ -7588,7 +7661,7 @@ spawn(function()
     end)
 end)
 
-Farm:Toggle("Auto Bartilo Quest", false, function(value)
+Farm:Toggle("Auto Bartilo Quest\nทำ เควสบาโท", false, function(value)
     _G.AutoBartilo = value
 end)
 spawn(function()
@@ -7722,7 +7795,7 @@ spawn(function()
     end
 end)
 local Farm = Tab1:CraftPage('Farm',1)
-Farm:Toggle("Auto Elite Hunter", false, function(value)
+Farm:Toggle("Auto Elite Hunter\nฟาร์ม อีลิต", false, function(value)
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
     _G.AutoElitehunter = value
     StopTween(_G.AutoElitehunter)
@@ -7787,7 +7860,7 @@ spawn(function()
         end
     end
 end)
-Farm:Toggle("Auto Farm Observation Haki", false, function(value)
+Farm:Toggle("Auto Farm Observation Haki\nฟาร์ม ฮาคิ สังเกต", false, function(value)
     _G.AutoObservation = value
     StopTween(_G.AutoObservation)
 end)
@@ -7882,7 +7955,7 @@ spawn(function()
     end)
 end)
 
-Farm:Toggle("Auto Observation Haki V2", false, function(value)
+Farm:Toggle("Auto Observation Haki V2\nทำ ฮาคิ สังเกต V2", false, function(value)
     _G.AutoObservationv2 = value
     StopTween(_G.AutoObservationv2)
 end)
@@ -7925,7 +7998,7 @@ spawn(function()
         end)
     end
 end)
-Farm:Toggle("Auto Buy Lengedary Sword", false, function(value)
+Farm:Toggle("Auto Buy Lengedary Sword\nออโต้ ซื้อ ดาบโซโล ของโลก2", false, function(value)
     _G.AutoBuyLegendarySword = value
 end)
 spawn(function()
@@ -8857,7 +8930,7 @@ spawn(function()
     end)
 end)
 local Farm = Tab1:CraftPage('Auto Farm Sword',2)
-Farm:Toggle("Auto Buddy Sword", false, function(value)
+Farm:Toggle("Auto Buddy Sword\nทำดาบ บิกมัม", false, function(value)
     _G.AutoBudySword = value
     StopTween(_G.AutoBudySword)
 end)
@@ -8909,7 +8982,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Tushita", false, function(value)
+Farm:Toggle("Auto Tushita\nทำดาบ ทูชิตะ", false, function(value)
     _G.Autotushita = value
     StopTween( _G.Autotushita)
 end)
@@ -8961,7 +9034,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Yama", false, function(value)
+Farm:Toggle("Auto Yama\nทำดาบ ยามะ", false, function(value)
     _G.AutoYama = value
     StopTween(_G.AutoYama)
 end)
@@ -8977,7 +9050,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Cavander", false, function(value)
+Farm:Toggle("Auto Cavander\nทำดาบของ คาเวนดิส", false, function(value)
     _G.AutoCarvender = value
     StopTween( _G.AutoCarvender)
 end)
@@ -9029,7 +9102,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Twin Hook", false, function(value)
+Farm:Toggle("Auto Twin Hook\nทำเคียว ของBossช้าง", false, function(value)
     _G.AutoTwinHook = value
     StopTween( _G.AutoTwinHook)
 end)
@@ -9081,7 +9154,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Hallow Scythe", false, function(value)
+Farm:Toggle("Auto Hallow Scythe\nทำเคียว ฮาโลวีน", false, function(value)
     _G.AutoFarmBossHallow = value
     StopTween(_G.AutoFarmBossHallow)
 end)
@@ -9173,7 +9246,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Waden Sword", false, function(value)
+Farm:Toggle("Auto Waden Sword\nทำดาบ วาเดน", false, function(value)
     _G.Autowaden = value
     StopTween( _G.Autowaden)
 end)
@@ -9225,7 +9298,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Pole V1", false, function(value)
+Farm:Toggle("Auto Pole V1\nทำ โพ V1", false, function(value)
     _G.Autopole = value
     StopTween( _G.Autopole)
 end)
@@ -9329,7 +9402,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Saber", false, function(value)
+Farm:Toggle("Auto Saber\nทำดาบ แชงค์", false, function(value)
     _G.Auto_Saber = value
     StopTween(_G.Auto_Saber)
 end)
@@ -9444,7 +9517,7 @@ spawn(function()
     end
 end)
 
-Farm:Toggle("Auto Rengoku", false, function(value)
+Farm:Toggle("Auto Rengoku\nทำดาบ เรนโกคุ หรือ เรนโงคุ", false, function(value)
     _G.AutoRengoku = value
     StopTween(_G.AutoRengoku)
 end)
@@ -10456,7 +10529,7 @@ end)
 Misc:Button("Hop Server", function()
     Hop()
 end)
-Misc:Button("Fruit Rain", function()
+Misc:Button("Fruit Rain\nเสกผล", function()
     for i, v in pairs(game:GetObjects("rbxassetid://14759368201")[1]:GetChildren()) do
         v.Parent = game.Workspace.Map
         v:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position + Vector3.new(math.random(-50, 50), 100, math.random(-50, 50)))
@@ -10495,11 +10568,11 @@ Raid:Dropdown("Select Chip", Raidslist, {""},function(value)
     _G.SelectChip = value
 end)
 
-Raid:Button("Buy Chip", function()
+Raid:Button("Buy Chip\nซื้อชิป", function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc","Select",_G.SelectChip)
 end)
 
-Raid:Toggle("Auto Select Raid", false, function(value)
+Raid:Toggle("Auto Select Raid\nเลือกดัน", false, function(value)
     _G.AutoSelectDungeon = value
 end)
 spawn(function()
@@ -10537,7 +10610,7 @@ spawn(function()
         end
     end
 end)
-Raid:Toggle("Auto Buy Chip", false, function(value)
+Raid:Toggle("Auto Buy Chip\nออโต้ซื้อชิป", false, function(value)
     _G.AutoBuyChip = value
 end)
 spawn(function()
@@ -10554,7 +10627,7 @@ spawn(function()
     end)
 end)
 
-Raid:Toggle("Auto Start Raid", false, function(value)
+Raid:Toggle("Auto Start Raid\nเริ่มดัน", false, function(value)
     _G.Auto_StartRaid = value
 end)
 spawn(function()
@@ -10575,7 +10648,7 @@ spawn(function()
     end
 end)
 
-Raid:Toggle("Kill Aura", false, function(value)
+Raid:Toggle("Kill Aura\nฆ่ามอน [ เปิดตอนเข้าดัน ]", false, function(value)
     _G.Kill_Aura = value
 end)
 spawn(function()
@@ -10600,7 +10673,7 @@ spawn(function()
     end)
 end)
 
-Raid:Toggle("Auto Next Island", false, function(value)
+Raid:Toggle("Auto Next Island\nไปเกราะ ต่อไป", false, function(value)
     _G.Auto_Dungeon = value
     StopTween(_G.Auto_Dungeon)
 end)
@@ -10759,7 +10832,7 @@ spawn(function()
     end
 end)
 local DemonFruit = Tab:CraftPage('Devil Fruit',2)
-DemonFruit:Button("Shop Devil Fruit",function()
+DemonFruit:Button("Shop Devil Fruit\nเปิดดูผล",function()
     local args = {
         [1] = "GetFruits"
     }
@@ -10773,7 +10846,7 @@ DemonFruit:Button("Random Fruit",function()
     }
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 end)
-DemonFruit:Toggle("Bring All Fruits", false, function(value)
+DemonFruit:Toggle("Bring All Fruits\nดึงผลปีศาจ [ ที่เกิด หรือ คนทิ้ง ]", false, function(value)
     _G.AutoBringFruit = value
 end)
 spawn(function()
@@ -10794,7 +10867,7 @@ spawn(function()
         end
     end)
 end)
-DemonFruit:Toggle("Store All Fruits", false, function(value)
+DemonFruit:Toggle("Store All Fruits\nเก็บผลทุกอย่างที่เรามี เข้าครั้ง", false, function(value)
     _G.AutoStoreSsFruit = value
 end)
 spawn(function()
@@ -10872,7 +10945,7 @@ task.spawn(function()
 			end
 		end)
 	end
-end) _G.FastAttack = true
+end)_G.FastAttack = true
 local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
 CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
 y = debug.getupvalues(CombatFrameworkR)[2]
@@ -10907,7 +10980,7 @@ spawn(function()
 end)
 local FastAttackSpeed = true
 
-_G.Fast_Delay = 0
+_G.Fast_Delay = 0.05
 
 local CurveFrame = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework")))[2]
 local VirtualUser = game:GetService("VirtualUser")
