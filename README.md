@@ -1,5 +1,122 @@
 _G.Color = Color3.fromRGB(0, 255, 0)
 _G.Logo = 16663324629
+_G.Settings = {
+		Auto_Farm_Level = false,
+		Auto_Farm_Fast = true,
+		Auto_New_World = false,
+		Auto_Third_World = false,
+		Auto_Farm_Chest = false,
+		Auto_Farm_Chest_Hop = false,
+		Auto_Elite_Hunter = false,
+		Auto_Elite_Hunter_Hop = false,
+		Auto_Spawn_Cake_Prince = false,
+		Auto_Cake_Prince = false,
+		Auto_Farm_Boss = false,
+		Select_Boss = "",
+		Auto_Quest_Boss = true,
+		Auto_Farm_All_Boss = false,
+		SelectWeapon = "Melee",
+		Auto_Set_Spawn = true,
+		Method = "Upper",
+		DistanceAutoFarm = 30,
+		Brimob = true,
+		Select_Stats = {},
+		Bypass = false,
+		Rejoin = true,
+		FastAttack = true,
+		Auto_Saber = false,
+		Auto_Saber_Hop = false,
+		Auto_Pole_V1_Hop = false,
+		Auto_Factory_Farm = false,
+		Auto_Farm_Ectoplasm = false,
+		Auto_Swan_Glasses = false,
+		Auto_Swan_Glasses_Hop = false,
+		Auto_Farm_Bone = false,
+		AutoObservation = false,
+		AutoObservation_Hop = false,
+		Auto_Trade_Bone = false,
+		Auto_Rainbow_Haki = false,
+		Auto_Rainbow_Haki_Hop = false,
+		Auto_Canvander = false,
+		AutoBuddySwords = false,
+		AutoCavander = false,
+		AutoMirageIsland = false,
+		Auto_Gear = false,
+		TptoKisuneIsland = false,
+		NeareastFarm = false,
+		TptoKisuneshrine = false,
+		AutoFarmBossHallow = false,
+		Auto_Twin_Hook_Hop = false,
+		Auto_Twin_Hook = false,
+		Auto_Serpent_Bow = false,
+		Auto_Serpent_Bow_Hop = false,
+		Auto_Evo_Race_V2 = false,
+		Auto_Rengoku = false,
+		Auto_Buy_Legendary_Sword = false,
+		Auto_Buy_Enchancement = false,
+		Auto_Yama = false,
+		Auto_Holy_Torch = false,
+		Auto_Musketeer_Hat = false,
+		Auto_Superhuman = false,
+		Auto_Fully_Superhuman = false,
+		Auto_Death_Step = false,
+		Auto_Fully_Death_Step = false,
+		Auto_SharkMan_Karate = false,
+		Auto_Fully_SharkMan_Karate = false,
+		Auto_Electric_Claw = false,
+		Auto_Dragon_Talon = false,
+		Auto_God_Human = false,
+		Select_Player = "",
+		Spectate_Player = false,
+		Teleport_to_Player = false,
+		EnabledPvP = false,
+		Auto_Stats = false,
+		Point = 1,
+		No_clip = false,
+		Infinit_Energy = false,
+		Dodge_No_CoolDown = false,
+		Infinit_Ability = false,
+		Infinit_SkyJump = false,
+		Infinit_Inf_Soru = false,
+		Infinit_Range_Observation_Haki = false,
+		Select_Island = "",
+		Start_Tween_Island = false,
+		Select_Dungeon = false,
+		Auto_Buy_Chips_Dungeon = false,
+		Auto_Start_Dungeon = false,
+		Auto_Next_Island = false,
+		Kill_Aura = false,
+		Auto_Awake = false,
+		Auto_Buy_Law_Chip = false,
+		Auto_Start_Law_Dungeon = false,
+		Auto_Kill_Law = false,
+		Select_Devil_Fruit = "",
+		Auto_Buy_Devil_Fruit = false,
+		Auto_Random_Fruit = false,
+		Auto_Bring_Fruit = false,
+		Auto_Store_Fruit = false,
+		LockMoon = false,
+		Auto_Mirage_Island = false,
+		SkillZ = true,
+		SkillX = true,
+		SkillC = true,
+		SkillV = true,
+		AutoMasterySkill = false,
+		HealthMs = 85,
+		Distance = 30,
+		DistanceY = 5,
+		ESP_Mirage_Island = false,
+		Auto_Awakening_One_Quest = false,
+		SuperFastAttack = false,
+		ESP_Chest = false,
+		Auto_Dack_Coat = false,
+		Auto_Sea_King = false,
+		Select_Mode = "Chest",
+		Remove_UI_DamageCounter = false,
+		Notifications_Remove = false,
+		Auto_CFrame = true,
+		Auto_Gear = false,
+	}
 do  
 	local ui = game:GetService("CoreGui"):FindFirstChild("UILibrary") 
 	 if ui then 
@@ -2017,6 +2134,49 @@ end
 		end
 		return false
 	end
+function LoadSettings()
+		if readfile and writefile and isfile and isfolder then
+			if not isfolder("Attack Hub") then
+				makefolder("Attack Hub")
+			end
+			if not isfolder("Attack Hub/Blox Fruits/") then
+				makefolder("Attack Hub/Blox Fruits/")
+			end
+			if not isfile("Attack Hub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json") then
+				writefile("Attack Hub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(_G.Settings))
+			else
+				local Decode = game:GetService("HttpService"):JSONDecode(readfile("Attack Hub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json"))
+				for i,v in pairs(Decode) do
+					_G.Settings[i] = v
+				end
+			end
+		else
+			return warn("Status : Undetected Executor")
+		end
+	end
+function SaveSettings()
+		if readfile and writefile and isfile and isfolder then
+			if not isfile("Attack Hub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json") then
+				LoadSettings()
+			else
+				local Decode = game:GetService("HttpService"):JSONDecode(readfile("Attack Hub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json"))
+				local Array = {}
+				for i,v in pairs(_G.Settings) do
+					Array[i] = v
+				end
+				writefile("Attack Hub/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(Array))
+			end
+		else
+			return warn("Status : Undetected Executor")
+		end
+	end
+spawn(function()
+		pcall(function()
+			while wait() do
+			LoadSettings()
+			end
+		end)
+	end)
 if game.PlaceId == 2753915549 then World1 = true elseif game.PlaceId == 4442272183 then World2 = true elseif game.PlaceId == 7449423635 then World3 = true end
 function checklevel() 
     Level = game:GetService("Players").LocalPlayer.Data.Level.Value
@@ -3595,7 +3755,7 @@ function ATween(Pos)
     if game.Players.LocalPlayer.Character.Humanoid.Sit == true then game.Players.LocalPlayer.Character.Humanoid.Sit = false end
     pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/210, Enum.EasingStyle.Linear),{CFrame = Pos}) end)
     tween:Play()
-    if Distance <= 250 then
+    if Distance <= 400 then
         tween:Cancel()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Pos
     end
@@ -3998,10 +4158,124 @@ Tween = function(target,statement,disableIslandSkip,fromRaid,CallingFrom)
 local Win = library:Evil("Attack Hub | ","",_G.Logo )
 local Tab = Win:CraftTab('General')
 local Main = Tab:CraftPage('Main',1)
+if World1 then 
+Main:Toggle("Auto Farm [ Level ]\nออโต้ฟาร์มเลเวล", false, function(value)
+    _G.AutoFarm = value
+    _G.Farmfast = value
+    _G.FarmExE = value
+    StopTween(_G.AutoFarm)
+    _G.Settings.Auto_Farm_Level = value
+    SaveSettings()
+end)
+spawn(function()
+		pcall(function()
+			while wait() do
+				if _G.Farmfast and World1 then
+					if game.Players.LocalPlayer.Data.Level.Value >= 30 then
+					    _G.AutoFarm = false
+					    _G.AutoPlayerHunter = true
+					end
+				end
+			end
+		end)
+	end)
+spawn(function()
+		pcall(function()
+			while wait() do
+				if _G.FarmExE and World1 then
+					if game.Players.LocalPlayer.Data.Level.Value >= 80 then
+					    _G.AutoFarm = true
+					_G.Farmfast = false
+					    _G.AutoPlayerHunter = false
+					end
+				end
+			end
+		end)
+end)
+spawn(function()
+    game:GetService("RunService").Heartbeat:connect(function()
+        pcall(function()
+            if _G.AutoPlayerHunter then
+                if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
+                end
+            end
+        end)
+    end)
+end)
+spawn(function()
+    pcall(function()
+        while wait(.1) do
+            if _G.AutoPlayerHunter then
+                if game:GetService("Players").LocalPlayer.PlayerGui.Main.PvpDisabled.Visible == true then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EnablePvp")
+                end
+            end
+        end
+    end)
+end)
+spawn(function()
+    while wait() do
+        if _G.AutoPlayerHunter then
+            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                wait(.5)
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("PlayerHunter")
+            else
+                for i,v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
+                    if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,v.Name) then
+                        repeat wait()
+                            if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+                                local args = {
+                                    [1] = "Buso"
+                                }
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                            end
+                            EquipWeapon(_G.SelectWeapon)
+                            Useskill = true
+                            ATween(v.HumanoidRootPart.CFrame * CFrame.new(1,7,3))								
+                            v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+                            game:GetService'VirtualUser':CaptureController()
+                            game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+                        until _G.AutoPlayerHunter == false or v.Humanoid.Health <= 0
+                        Useskill = false
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                    end
+                end
+            end
+        end
+    end
+end)
+spawn(function()
+    while wait() do
+		pcall(function()
+			if Useskill then
+				game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
+				wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game)
+                wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
+				wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game)
+                wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(true,"C",false,game)
+				wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(false,"C",false,game)
+                wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(true,"V",false,game)
+				wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(false,"V",false,game)
+			end
+		end)
+    end
+end)
+elseif World2 or World3 then 
 Main:Toggle("Auto Farm [ Level ]\nออโต้ฟาร์มเลเวล", false, function(value)
     _G.AutoFarm = value
     StopTween(_G.AutoFarm)
+    _G.Settings.Auto_Farm_Level = value
+    SaveSettings()
 end)
+end
 spawn(function()
     while wait() do
         if _G.AutoFarm then
@@ -4211,6 +4485,8 @@ end
 local Main = Tab:CraftPage('Cake',1)
 Main:Toggle("Auto Farm Cake Prince\nฟาร์ม คาตาคุริ", false, function(value)
     _G.AutoDoughtBoss = value
+    _G.Settings.Auto_Cake_Prince = value
+	SaveSettings()
     StopTween(_G.AutoDoughtBoss)
 end)
 spawn(function()
@@ -4368,7 +4644,9 @@ end)
 local Main = Tab:CraftPage('Bone',1)
 Main:Toggle("Auto Farm [ Bones ]\nฟาร์ม กระดูก", false, function(value)
     _G.Auto_Bone = value
+    _G.Settings.Auto_Farm_Bone = value
     StopTween(_G.Auto_Bone)
+    SaveSettings()
 end)
 local BonePos = CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375)
 spawn(function()
@@ -5160,15 +5438,17 @@ spawn(function()
     end
 end)local Set = Tab:CraftPage('Setting',2)
 local Weapon = {
-"หมัด","ดาบ","ผลปีศาจ","ปืน"
+"หมัด/Melee","ดาบ/Sword","ผลปีศาจ/Fruit","ปืน/Gun"
 }
 Set:Dropdown("Select Weapon",Weapon,{"Melee"},function(value)
 _G.SelectWeapon = value
+_G.Settings.SelectWeapon = value
+SaveSettings()
 end)
 task.spawn(function()
 	while wait() do
 		pcall(function()
-			if _G.SelectWeapon == "หมัด" then
+			if _G.SelectWeapon == "หมัด/Melee" then
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Melee" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
@@ -5176,7 +5456,7 @@ task.spawn(function()
 						end
 					end
 				end
-			elseif _G.SelectWeapon == "ดาบ" then
+			elseif _G.SelectWeapon == "ดาบ/Sword" then
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Sword" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
@@ -5184,7 +5464,7 @@ task.spawn(function()
 						end
 					end
 				end
-			elseif _G.SelectWeapon == "ปืน" then
+			elseif _G.SelectWeapon == "ปืน/Gun" then
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Gun" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
@@ -5192,7 +5472,7 @@ task.spawn(function()
 						end
 					end
 				end
-			elseif _G.SelectWeapon == "ผลปีศาจ" then
+			elseif _G.SelectWeapon == "ผลปีศาจ/Fruit" then
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Blox Fruit" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
@@ -5217,7 +5497,17 @@ spawn(function()
 			setfpscap(240)
 		end
 	end
-end)_G.Remove_trct = true
+end)
+_G.AutoSaveSettings = true
+spawn(function()
+	while wait() do
+		if _G.AutoSaveSettings then
+		SaveSettings()
+		end
+	end
+end)
+Set:Toggle("Remove Notification", false, function(value)
+_G.Remove_trct = value
 spawn(function()
 	while wait() do
 		if _G.Remove_trct then
@@ -5226,6 +5516,7 @@ spawn(function()
 			game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = true
 		end
 	end
+end)
 end)_G.Remove_Effect = true
 spawn(function()
     game:GetService('RunService').Stepped:Connect(function()
